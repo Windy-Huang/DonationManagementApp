@@ -14,7 +14,7 @@ The goal of the project is to help the **executive assistant** at RMCS keep a re
 received. Some targets that this application should achieve includes:
 - Showing the total amount of donations received. 
 - Keeping track of the donors' information, along with details of the transactions, such as amount and transaction type. 
-- Being able to quickly find a donor by name and create a report of the donors that have donated over a certain amount. 
+- Being able to quickly find a donor by name, or create a report of the donors that have donated over a certain amount. 
 - Handling a large amount of data; therefore, an area of improvement is to connect to SQL data using the JDBC library. 
 - Ensuring security, protected by username and password.
 
