@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.ArchieveException;
+import exceptions.ArchiveException;
 
 // represent a transaction of amount, type, date, and archive status
 public class Transaction {
@@ -32,23 +32,23 @@ public class Transaction {
     }
 
     // SETTERS:
-    public void setAmount(int a) throws ArchieveException {
+    public void setAmount(int a) throws ArchiveException {
         if (isArchive) {
-            throw new ArchieveException();
+            throw new ArchiveException();
         }
         amount = a;
     }
 
-    public void setType(String t) throws ArchieveException {
+    public void setType(String t) throws ArchiveException {
         if (isArchive) {
-            throw new ArchieveException();
+            throw new ArchiveException();
         }
         type = t;
     }
 
-    public void setDate(Date d) throws ArchieveException {
+    public void setDate(Date d) throws ArchiveException {
         if (isArchive) {
-            throw new ArchieveException();
+            throw new ArchiveException();
         }
         date = d;
     }
@@ -57,9 +57,9 @@ public class Transaction {
         isArchive = true;
     }
 
-    // EFFECTS: print out the transaction detail in one like
+    // EFFECTS: print out the transaction detail in one line
     public void printTransaction() {
-        System.out.println(date.shortFormat() + ", donated " + Integer.toString(amount)
+        System.out.println(date.shortFormat() + ", donated " + amount
                 + " by " + getType());
     }
 

@@ -34,7 +34,7 @@ public class Panel {
         totalDonation = c;
     }
 
-    // EFFECTS: print out all the donors in the database
+    // EFFECTS: print out all the donors in the database in a one line format
     public void printDonor() {
         for (Donor d : donors) {
             System.out.println("Donor: " + d.getName() + ", Donation: " + d.getDonation());
@@ -55,7 +55,7 @@ public class Panel {
     }
 
     // MODIFIES: this
-    // EFFECTS: sort the donor list so donor is arranged in descending order by the amount donated using quicksort
+    // EFFECTS: arrange donor list in descending order by the amount donated using quicksort
     public ArrayList<Donor> quickSort(ArrayList<Donor> arr) {
         int size = arr.size();
         if (size > 1) {
@@ -78,6 +78,8 @@ public class Panel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sort the donor list using quicksort
     public void sortDonor() {
         donors = quickSort(donors);
     }
@@ -90,7 +92,7 @@ public class Panel {
             if (d.getDonation() < value) {
                 break;
             }
-            System.out.println(d.getName() + " donated " + Integer.toString(d.getDonation()));
+            System.out.println(d.getName() + " donated " + d.getDonation());
         }
     }
 

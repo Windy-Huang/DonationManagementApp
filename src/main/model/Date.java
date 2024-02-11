@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Date {
 
     private static ArrayList<String> MONTH;
-    private int month;
-    private int day;
-    private int year;
+    private final int month;
+    private final int day;
+    private final int year;
 
     // EFFECTS: construct a date with month, day, year
     public Date(int month, int day, int year) {
@@ -20,20 +20,18 @@ public class Date {
 
     // EFFECTS: return the date in MM/DD/YYYY format
     public String shortFormat() {
-        String s = addLeadingZero(month) + "/" + addLeadingZero(day) + "/" + Integer.toString(year);
-        return s;
+        return (addLeadingZero(month) + "/" + addLeadingZero(day) + "/" + year);
     }
 
     // EFFECTS: return the date in Month day, year string format
     public String longFormat() {
-        String s = MONTH.get(month - 1) + " " + Integer.toString(day) + ", " + Integer.toString(year);
-        return s;
+        return (MONTH.get(month - 1) + " " + day + ", " + year);
     }
 
     // EFFECTS: add leading zero to month and day less than 10
     private String addLeadingZero(int x) {
         if (x < 10) {
-            return ("0" + Integer.toString(x));
+            return ("0" + x);
         } else {
             return (Integer.toString(x));
         }

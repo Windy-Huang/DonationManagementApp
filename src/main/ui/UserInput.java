@@ -1,6 +1,6 @@
 package ui;
 
-import exceptions.ArchieveException;
+import exceptions.ArchiveException;
 import exceptions.EmptyException;
 import model.Account;
 import model.Date;
@@ -18,6 +18,7 @@ public class UserInput {
     private Donor selectedDonor;
     private Transaction selectedTransaction;
 
+    // EFFECTS: create an object to handle user interaction with placeholder selectedDonor and selectedTransaction
     public UserInput() {
         input = new Scanner(System.in);
         input.useDelimiter("\n");
@@ -27,23 +28,20 @@ public class UserInput {
         selectedTransaction = new Transaction(null, null, 0);
     }
 
-    // EFFECTS: continues the application until the user chooses to quit
+    // MODIFIES: this
+    // EFFECTS: continues the application until the user chooses to quit by selecting logoff
     public void runLoop() {
-
         Account acc = new Account("RMCS", "123");
-
         while (!state) {
             state = displayAccount(acc);
         }
-
         while (state) {
             displayMain();
             handleKeyMain();
         }
-
     }
 
-    // EFFECTS: display the login option that user can choose
+    // EFFECTS: display the login option that user can choose from
     //          return true if user login is successful
     public Boolean displayAccount(Account a) {
         System.out.println("Welcome to the donation database user RMCS, please enter your password");
@@ -62,7 +60,7 @@ public class UserInput {
         }
     }
 
-    // EFFECTS: display the main panel that user can choose
+    // EFFECTS: display the home page options that user can choose from
     public void displayMain() {
         System.out.println("RMCS currently have " + panel.getDonors().size() + " donors with a total donation of "
                 + panel.getTotalDonation() + " dollars.");
@@ -73,7 +71,8 @@ public class UserInput {
         System.out.println("Logout - 4");
     }
 
-    // EFFECTS; handle user key input at the main page
+    // MODIFIES: this
+    // EFFECTS; handle user key input at the home page
     public void handleKeyMain() {
         String s = input.next();
         switch (s) {
@@ -100,6 +99,8 @@ public class UserInput {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: handle user key input to add a new donor
     public void handleNewDonor() {
         System.out.println("You've selected add a new donor");
         System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
@@ -115,6 +116,7 @@ public class UserInput {
         }
     }
 
+    // EFFECTS: display the options users have to operate on the transaction of selected user
     public void displayCurrentDonor() {
         System.out.println("You've selected Edit a current donor");
         System.out.println("From the list of current donors printed below, "
@@ -131,7 +133,8 @@ public class UserInput {
         System.out.println("Return to home page - any other character");
     }
 
-    // EFFECTS: selecting the donor to edit
+    // MODIFIES: this
+    // EFFECTS: helper to select the donor to edit
     public Boolean handleCurrentDonorSelectDonor() {
         panel.printDonor();
         int i = validInteger();
@@ -144,7 +147,7 @@ public class UserInput {
         }
     }
 
-    // EFFECTS: handle operation to be performed on the selected donor
+    // EFFECTS: react to user's key input for the operation they want to perform
     public void handleCurrentDonor() {
         String s = input.next();
         switch (s) {
@@ -163,15 +166,8 @@ public class UserInput {
         }
     }
 
-    public void handleViewProfile() {
-        System.out.println("Name: " + selectedDonor.getName());
-        System.out.println("Phone: " + selectedDonor.getPhone());
-        System.out.println("Email: " + selectedDonor.getEmail());
-        System.out.println("Donation: " + Integer.toString(selectedDonor.getDonation()));
-        System.out.println("Transaction:");
-        selectedDonor.printTransactions();
-    }
-
+    // MODIFIES: this
+    // EFFECTS: display instruction to user for adding new transaction
     public void handleNewTransaction() {
         System.out.println("You've selected add a new transaction to donor, " + selectedDonor.getName());
         System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
@@ -192,56 +188,7 @@ public class UserInput {
         }
     }
 
-    public void handleRemoveTransaction() {
-        System.out.println("You've selected remove the transaction");
-        System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
-        String s = input.next();
-        if (s.equals("p")) {
-            try {
-                selectedDonor.removeTransaction(selectedTransaction);
-                panel.updateDonation();
-                System.out.println("Transaction deleted");
-            } catch (ArchieveException e) {
-                System.out.println("This transaction is archived, and it cannot be changed");
-                System.out.println("Remaining to home page");
-            }
-        }
-    }
-
-    public void handleChangeTransaction() {
-        System.out.println("You've selected changed the transaction");
-        System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
-        if (input.next().equals("p")) {
-            System.out.println("Please enter the transaction year");
-            int year = validInteger();
-            System.out.println("Please enter the transaction month");
-            int month = validInteger();
-            System.out.println("Please enter the transaction day");
-            int day = validInteger();
-            System.out.println("Please enter the transaction method");
-            String type = input.next();
-            System.out.println("Please enter the transaction amount");
-            int amount = validInteger();
-            try {
-                selectedDonor.changeTransaction(selectedTransaction, new Date(month, day, year), type, amount);
-                panel.updateDonation();
-                System.out.println("Transaction updated");
-            } catch (ArchieveException e) {
-                System.out.println("This transaction is archived, and it cannot be changed. Returning to home page");
-            }
-        }
-    }
-
-    public void handleArchiveTransaction() {
-        System.out.println("You've selected archive the transaction");
-        System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
-        String s = input.next();
-        if (s.equals("p")) {
-            selectedTransaction.setIsArchive();
-            System.out.println("The transaction is archived");
-        }
-    }
-
+    // EFFECTS: display instruction to user for viewing all transactions
     public void handleViewTransaction() {
         System.out.println("You've selected view all transactions of donor, " + selectedDonor.getName());
         System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
@@ -254,17 +201,8 @@ public class UserInput {
         }
     }
 
-    public Boolean handleCurrentTransactionSelectTransaction() {
-        int i = validInteger();
-        if ((i - 1) < selectedDonor.getTransactions().size()) {
-            selectedTransaction = selectedDonor.getTransactions().get(i - 1);
-            return false;
-        } else {
-            System.out.println("Invalid row number, please try again.");
-            return true;
-        }
-    }
-
+    // MODIFIES: this
+    // EFFECTS: display instruction to user for changing a transaction
     public void handleEditTransaction() {
         System.out.println("From the list of Transaction printed above, "
                 + "enter the row number of the transaction you wish to edit");
@@ -291,6 +229,90 @@ public class UserInput {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: helper to select the transaction to edit
+    public Boolean handleCurrentTransactionSelectTransaction() {
+        int i = validInteger();
+        if ((i - 1) < selectedDonor.getTransactions().size()) {
+            selectedTransaction = selectedDonor.getTransactions().get(i - 1);
+            return false;
+        } else {
+            System.out.println("Invalid row number, please try again.");
+            return true;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: set the selected transaction to archive
+    public void handleArchiveTransaction() {
+        System.out.println("You've selected archive the transaction");
+        System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
+        String s = input.next();
+        if (s.equals("p")) {
+            selectedTransaction.setIsArchive();
+            System.out.println("The transaction is archived");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: remove the selected transaction and update the donation calculation accordingly
+    //          if the transaction is archived, then catch the exception and reject the change
+    public void handleRemoveTransaction() {
+        System.out.println("You've selected remove the transaction");
+        System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
+        String s = input.next();
+        if (s.equals("p")) {
+            try {
+                selectedDonor.removeTransaction(selectedTransaction);
+                panel.updateDonation();
+                System.out.println("Transaction deleted");
+            } catch (ArchiveException e) {
+                System.err.println("This transaction is archived, and it cannot be changed");
+                System.err.println("Remaining to home page");
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: change the selected transaction and update the donation calculation accordingly
+    //          if the transaction is archived, then catch the exception and reject the change
+    public void handleChangeTransaction() {
+        System.out.println("You've selected changed the transaction");
+        System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
+        if (input.next().equals("p")) {
+            System.out.println("Please enter the transaction year");
+            int year = validInteger();
+            System.out.println("Please enter the transaction month");
+            int month = validInteger();
+            System.out.println("Please enter the transaction day");
+            int day = validInteger();
+            System.out.println("Please enter the transaction method");
+            String type = input.next();
+            System.out.println("Please enter the transaction amount");
+            int amount = validInteger();
+            try {
+                selectedDonor.changeTransaction(selectedTransaction, new Date(month, day, year), type, amount);
+                panel.updateDonation();
+                System.out.println("Transaction updated");
+            } catch (ArchiveException e) {
+                System.err.println("This transaction is archived, and it cannot be changed. Returning to home page");
+            }
+        }
+    }
+
+    // EFFECTS: print all the field of the selected donor
+    public void handleViewProfile() {
+        System.out.println("Name: " + selectedDonor.getName());
+        System.out.println("Phone: " + selectedDonor.getPhone());
+        System.out.println("Email: " + selectedDonor.getEmail());
+        System.out.println("Donation: " + selectedDonor.getDonation());
+        System.out.println("Transaction:");
+        selectedDonor.printTransactions();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: display instruction to user for removing a donor
+    //          if the donor contains archived transaction, reject the change
     public void handleDeleteDonor() {
         System.out.println("You've selected delete donor, " + selectedDonor.getName());
         System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
@@ -301,13 +323,13 @@ public class UserInput {
                 panel.removeDonor(selectedDonor);
                 panel.updateDonation();
             } else {
-                System.out.println("This user contain archived transaction, and it cannot be deleted");
-                System.out.println("Returning to home page");
+                System.err.println("This user contain archived transaction, and it cannot be deleted");
+                System.err.println("Returning to home page");
             }
         }
     }
 
-    // EFFECTS: return true if user does not contain archievd transaction
+    // EFFECTS: Helper that return true if user does not contain archived transactions
     public Boolean notArchiveUser() {
         for (Transaction t:selectedDonor.getTransactions()) {
             if (t.getIsArchive()) {
@@ -317,6 +339,7 @@ public class UserInput {
         return true;
     }
 
+    // EFFECTS: display instruction to user for options available to manage all donors
     public void displayManageDonor() {
         System.out.println("You've selected manage all donors");
         System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
@@ -330,6 +353,8 @@ public class UserInput {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: handle user's key input for options to manage all donors
     public void handleManageDonor() {
         String s = input.next();
         switch (s) {
@@ -345,7 +370,7 @@ public class UserInput {
         }
     }
 
-    // EFFECTS: ensure the user only input number
+    // EFFECTS: Helper that ensures user only input numerical character
     public int validInteger() {
         String s = input.next();
         while (!s.matches("[0-9]+")) {
@@ -354,4 +379,5 @@ public class UserInput {
         }
         return (Integer.valueOf(s));
     }
+
 }
