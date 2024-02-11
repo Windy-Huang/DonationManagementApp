@@ -2,20 +2,44 @@ package ui;
 
 import java.util.ArrayList;
 import model.Donor;
+import model.Transaction;
 
 // represent a command Panel that allows user interaction
 public class Panel {
 
     private ArrayList<Donor> donors;
+    private int totalDonation;
 
-    // EFFECTS: create a panel with no donor
+    // EFFECTS: create a panel with no donor and no donation
     public Panel() {
         donors = new ArrayList<Donor>();
+        totalDonation = 0;
     }
 
     // GETTERS:
     public ArrayList<Donor> getDonors() {
         return donors;
+    }
+
+    public int getTotalDonation() {
+        return totalDonation;
+    }
+
+    // MODIFIES: this
+    // EFFECT: recalculate and update the total donations received
+    public void updateDonation() {
+        int c = 0;
+        for (Donor d:donors) {
+            c += d.getDonation();
+        }
+        totalDonation = c;
+    }
+
+    // EFFECTS: print out all the donors in the database
+    public void printDonor() {
+        for (Donor d : donors) {
+            System.out.println("Donor: " + d.getName() + ", Donation: " + d.getDonation());
+        }
     }
 
     // MODIFIES: this
@@ -53,8 +77,7 @@ public class Panel {
                     right.add(arr.get(i));
                 }
             }
-            ArrayList<Donor> temp = new ArrayList<Donor>();
-            temp.addAll(sortDonor(left));
+            ArrayList<Donor> temp = sortDonor(left);
             temp.add(arr.get(0));
             temp.addAll(sortDonor(right));
             return temp;
@@ -65,7 +88,7 @@ public class Panel {
 
     // EFFECTS: print the name of donor and their donated amount if their donation exceeds or equal to value
     //          donor is arranged in descending order by the amount donated
-    public void donerOverValue(int value) {
+    public void donorOverValue(int value) {
         donors = sortDonor(donors);
         for (Donor d:donors) {
             if (d.getDonation() < value) {
@@ -74,4 +97,5 @@ public class Panel {
             System.out.println(d.getName() + " donated " + Integer.toString(d.getDonation()));
         }
     }
+
 }

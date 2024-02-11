@@ -6,12 +6,12 @@ import exceptions.ArchieveException;
 public class Transaction {
 
     private int amount;
-    private TransactionType type;
+    private String type;
     private Date date;
     private Boolean isArchive;
 
     // EFFECTS: create a transaction object with date, type, amount and not archived
-    public Transaction(Date d, TransactionType t, int a) {
+    public Transaction(Date d, String t, int a) {
         amount = a;
         type = t;
         date = d;
@@ -24,15 +24,7 @@ public class Transaction {
     }
 
     public String getType() {
-        switch (type) {
-            case CASH:
-                return "cash";
-            case DEBIT_CARD:
-                return "debit";
-            case CREDIT_CARD:
-                return "credit";
-        }
-        return null;
+        return type;
     }
 
     public Date getDate() {
@@ -47,7 +39,7 @@ public class Transaction {
         amount = a;
     }
 
-    public void setType(TransactionType t) throws ArchieveException {
+    public void setType(String t) throws ArchieveException {
         if (isArchive) {
             throw new ArchieveException();
         }
@@ -67,7 +59,7 @@ public class Transaction {
 
     // EFFECTS: print out the transaction detail in one like
     public void printTransaction() {
-        System.out.println(date.shortFormat() + ", donated " + Integer.toString(amount)
+        System.out.println(date.longFormat() + ", donated " + Integer.toString(amount)
                 + " by " + getType());
     }
 

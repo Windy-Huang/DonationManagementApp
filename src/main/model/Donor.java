@@ -41,8 +41,12 @@ public class Donor {
 
     // EFFECTS: print out all the donation transaction of donor
     public void printTransactions() {
-        for (Transaction t:transactions) {
-            t.printTransaction();
+        if (transactions.isEmpty()) {
+            System.out.println("There is currently no transaction made by this donor.");
+        } else {
+            for (Transaction t : transactions) {
+                t.printTransaction();
+            }
         }
     }
 
