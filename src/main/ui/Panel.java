@@ -56,7 +56,7 @@ public class Panel {
 
     // MODIFIES: this
     // EFFECTS: arrange donor list in descending order by the amount donated using quicksort
-    public ArrayList<Donor> quickSort(ArrayList<Donor> arr) {
+    private ArrayList<Donor> quickSort(ArrayList<Donor> arr) {
         int size = arr.size();
         if (size > 1) {
             int begin = arr.get(0).getDonation();

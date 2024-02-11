@@ -19,6 +19,11 @@ public class Transaction {
     }
 
     //GETTERS:
+
+    public Date getDate() {
+        return date;
+    }
+
     public int getAmount() {
         return amount;
     }
