@@ -1,6 +1,6 @@
 package model;
 
-import exceptions.IndexException;
+import exceptions.ArchieveException;
 
 import java.util.ArrayList;
 
@@ -39,6 +39,10 @@ public class Donor {
         return donation;
     }
 
+    public ArrayList<Transaction> getTransactions() {
+        return transactions;
+    }
+
     // EFFECTS: print out all the donation transaction of donor
     public void printTransactions() {
         if (transactions.isEmpty()) {
@@ -57,15 +61,23 @@ public class Donor {
         donation += t.getAmount();
     }
 
+    // REQUIRES: n < transaction.size()
     // MODIFIES: this
     // EFFECTS: remove a transaction at the specified index (1 based) from the list of transaction
     //          decrement donation accordingly
-    public void removeTransaction(int n) throws IndexException {
-        if (n >= transactions.size()) {
-            throw new IndexException();
+    public void removeTransaction(Transaction t) throws ArchieveException {
+        if (t.getIsArchive()) {
+            throw new ArchieveException();
         }
-        donation -= transactions.get(n - 1).getAmount();
-        transactions.remove(n - 1);
+        donation -= t.getAmount();
+        transactions.remove(t);
     }
 
+    public void changeTransaction(Transaction t, Date d, String type, int amount) throws ArchieveException {
+        t.setDate(d);
+        t.setType(type);
+        donation -= t.getAmount();
+        t.setAmount(amount);
+        donation += t.getAmount();
+    }
 }

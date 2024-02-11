@@ -27,8 +27,8 @@ public class Transaction {
         return type;
     }
 
-    public Date getDate() {
-        return date;
+    public Boolean getIsArchive() {
+        return isArchive;
     }
 
     // SETTERS:
@@ -59,7 +59,7 @@ public class Transaction {
 
     // EFFECTS: print out the transaction detail in one like
     public void printTransaction() {
-        System.out.println(date.longFormat() + ", donated " + Integer.toString(amount)
+        System.out.println(date.shortFormat() + ", donated " + Integer.toString(amount)
                 + " by " + getType());
     }
 

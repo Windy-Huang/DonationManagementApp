@@ -2,7 +2,6 @@ package ui;
 
 import java.util.ArrayList;
 import model.Donor;
-import model.Transaction;
 
 // represent a command Panel that allows user interaction
 public class Panel {
@@ -48,23 +47,16 @@ public class Panel {
         donors.add(d);
     }
 
+    // REQUIRES: donors.contain(d) == true && for all transaction in donors, transaction.getIsArchive == false
     // MODIFIES: this
-    // EFFECTS: if intended donor exist in list, removes a donor based on their name
-    public void removeDonor(String n) {
-        int a = -1;
-        for (int i = 0; i <= donors.size(); i++) {
-            if (donors.get(i).getName() == n) {
-                a = i;
-            }
-        }
-        if (a != -1) {
-            donors.remove(a);
-        }
+    // EFFECTS: remove a donor from the list
+    public void removeDonor(Donor d) {
+        donors.remove(d);
     }
 
     // MODIFIES: this
     // EFFECTS: sort the donor list so donor is arranged in descending order by the amount donated using quicksort
-    public ArrayList<Donor> sortDonor(ArrayList<Donor> arr) {
+    public ArrayList<Donor> quickSort(ArrayList<Donor> arr) {
         int size = arr.size();
         if (size > 1) {
             int begin = arr.get(0).getDonation();
@@ -77,19 +69,23 @@ public class Panel {
                     right.add(arr.get(i));
                 }
             }
-            ArrayList<Donor> temp = sortDonor(left);
+            ArrayList<Donor> temp = quickSort(left);
             temp.add(arr.get(0));
-            temp.addAll(sortDonor(right));
+            temp.addAll(quickSort(right));
             return temp;
         } else {
             return arr;
         }
     }
 
+    public void sortDonor() {
+        donors = quickSort(donors);
+    }
+
     // EFFECTS: print the name of donor and their donated amount if their donation exceeds or equal to value
     //          donor is arranged in descending order by the amount donated
     public void donorOverValue(int value) {
-        donors = sortDonor(donors);
+        sortDonor();
         for (Donor d:donors) {
             if (d.getDonation() < value) {
                 break;
