@@ -77,38 +77,86 @@ public class DonorTest {
         assertEquals(510, d1.getDonation());
     }
 
+//    @Test
+//    public void testRemoveTransaction() throws ArchiveException {
+//        d1.addTransaction(t1);
+//        d1.removeTransaction(t1);
+//        assertEquals(0, d1.getTransactions().size());
+//        assertEquals(0, d1.getDonation());
+//    }
+//
     @Test
-    public void testRemoveTransaction() throws ArchiveException {
-        d1.addTransaction(t1);
-        d1.removeTransaction(t1);
+    public void testRemoveTransaction() {
+        try {
+            d1.addTransaction(t1);
+            d1.removeTransaction(t1);
+        } catch (ArchiveException e) {
+            fail("should not throw exception");
+        }
         assertEquals(0, d1.getTransactions().size());
         assertEquals(0, d1.getDonation());
     }
 
+//    @Test
+//    public void testRemoveTransactionEx() {
+//        d1.addTransaction(t2);
+//        assertThrows(ArchiveException.class, () -> {
+//            d1.removeTransaction(t2);
+//        });
+//        assertEquals(1, d1.getTransactions().size());
+//        assertEquals(500, d1.getDonation());
+//    }
+
     @Test
     public void testRemoveTransactionEx() {
-        d1.addTransaction(t2);
-        assertThrows(ArchiveException.class, () -> {
+        try {
+            d1.addTransaction(t2);
             d1.removeTransaction(t2);
-        });
+            fail("should throw exception");
+        } catch (ArchiveException e) {
+        }
         assertEquals(1, d1.getTransactions().size());
         assertEquals(500, d1.getDonation());
     }
 
+//    @Test
+//    public void testChangeTransaction() throws ArchiveException{
+//        d1.addTransaction(t1);
+//        d1.changeTransaction(t1, new Date(5,1,2022), "credit", 50);
+//        assertEquals(1, d1.getTransactions().size());
+//        assertEquals(50, d1.getDonation());
+//    }
+
     @Test
-    public void testChangeTransaction() throws ArchiveException{
-        d1.addTransaction(t1);
-        d1.changeTransaction(t1, new Date(5,1,2022), "credit", 50);
+    public void testChangeTransaction() {
+        try {
+            d1.addTransaction(t1);
+            d1.changeTransaction(t1, new Date(5,1,2022), "credit", 50);
+        } catch (ArchiveException e) {
+            fail("should not throw exception");
+        }
         assertEquals(1, d1.getTransactions().size());
         assertEquals(50, d1.getDonation());
     }
 
+//    @Test
+//    public void testChangeTransactionEx() {
+//        d1.addTransaction(t2);
+//        assertThrows(ArchiveException.class, () -> {
+//            d1.changeTransaction(t2, new Date(5,1,2022), "credit", 50);
+//        });
+//        assertEquals(1, d1.getTransactions().size());
+//        assertEquals(500, d1.getDonation());
+//    }
+
     @Test
     public void testChangeTransactionEx() {
-        d1.addTransaction(t2);
-        assertThrows(ArchiveException.class, () -> {
+        try {
+            d1.addTransaction(t2);
             d1.changeTransaction(t2, new Date(5,1,2022), "credit", 50);
-        });
+            fail("should throw exception");
+        } catch (ArchiveException e) {
+        }
         assertEquals(1, d1.getTransactions().size());
         assertEquals(500, d1.getDonation());
     }

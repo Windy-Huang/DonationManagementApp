@@ -37,45 +37,105 @@ public class TransactionTest {
         assertFalse(t1.getIsArchive());
     }
 
+//    @Test
+//    public void testSetAmount() throws ArchiveException {
+//       t1.setAmount(20);
+//       assertEquals(20, t1.getAmount());
+//    }
+
     @Test
-    public void testSetAmount() throws ArchiveException {
-       t1.setAmount(20);
-       assertEquals(20, t1.getAmount());
+    public void testSetAmount() {
+        try {
+            t1.setAmount(20);
+        } catch (ArchiveException e) {
+            fail("should not throw exception");
+        }
+        assertEquals(20, t1.getAmount());
     }
+
+//    @Test
+//    public void testSetAmountEx() {
+//        assertThrows(ArchiveException.class, () -> {
+//            t2.setAmount(20);
+//        });
+//        assertEquals(500, t2.getAmount());
+//    }
 
     @Test
     public void testSetAmountEx() {
-        assertThrows(ArchiveException.class, () -> {
+        try {
             t2.setAmount(20);
-        });
+            fail("should throw exception");
+        } catch (ArchiveException e) {
+        }
         assertEquals(500, t2.getAmount());
     }
 
+//    @Test
+//    public void testSetType() throws ArchiveException {
+//        t1.setType("debit");
+//        assertEquals("debit", t1.getType());
+//    }
+
     @Test
-    public void testSetType() throws ArchiveException {
-        t1.setType("debit");
+    public void testSetType() {
+        try {
+            t1.setType("debit");
+        } catch (ArchiveException e) {
+            fail("should not throw exception");
+        }
         assertEquals("debit", t1.getType());
     }
 
+//    @Test
+//    public void testSetTypeEx() {
+//        assertThrows(ArchiveException.class, () -> {
+//            t2.setType("cash");
+//        });
+//        assertEquals("debit", t2.getType());
+//    }
+
     @Test
     public void testSetTypeEx() {
-        assertThrows(ArchiveException.class, () -> {
+        try {
             t2.setType("cash");
-        });
+            fail("should throw exception");
+        } catch (ArchiveException e) {
+        }
         assertEquals("debit", t2.getType());
     }
 
+//    @Test
+//    public void testSetDate() throws ArchiveException {
+//        t1.setDate(new Date(2,8,2024));
+//        assertEquals("02/08/2024", t1.getDate().shortFormat());
+//    }
+
     @Test
-    public void testSetDate() throws ArchiveException {
-        t1.setDate(new Date(2,8,2024));
+    public void testSetDate() {
+        try {
+            t1.setDate(new Date(2,8,2024));
+        } catch (ArchiveException e) {
+            fail("should throw exception");
+        }
         assertEquals("02/08/2024", t1.getDate().shortFormat());
     }
 
+//    @Test
+//    public void testSetDateEx() {
+//        assertThrows(ArchiveException.class, () -> {
+//            t2.setDate(new Date(2,8,2024));
+//        });
+//        assertEquals(date, t2.getDate());
+//    }
+
     @Test
     public void testSetDateEx() {
-        assertThrows(ArchiveException.class, () -> {
+        try {
             t2.setDate(new Date(2,8,2024));
-        });
+            fail("should throw exception");
+        } catch (ArchiveException e) {
+        }
         assertEquals(date, t2.getDate());
     }
 

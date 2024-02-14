@@ -13,21 +13,52 @@ class AccountTest {
         a = new Account("hello", "123");
     }
 
+//    @Test
+//    public void testLoginT() throws EmptyException {
+//        assertTrue(a.login("123"));
+//    }
+
+//    @Test
+//    public void testLoginF() throws EmptyException {
+//        assertFalse(a.login("345"));
+//    }
+
+//    @Test
+//    public void testLoginEx() {
+//        assertThrows(EmptyException.class, () -> {
+//            a.login("");
+//        });
+//    }
+
     @Test
-    public void testLoginT() throws EmptyException {
-        assertTrue(a.login("123"));
+    public void testLoginT() {
+        Boolean bool = false;
+        try {
+            bool = a.login("123");
+        } catch (EmptyException e) {
+            fail("should not throw exception");
+        }
+        assertTrue(bool);
     }
 
     @Test
-    public void testLoginF() throws EmptyException {
-        assertFalse(a.login("345"));
+    public void testLoginF() {
+        Boolean bool = true;
+        try {
+            bool = a.login("345");
+        } catch (EmptyException e) {
+            fail("should not throw exception");
+        }
+        assertFalse(bool);
     }
 
     @Test
     public void testLoginEx() {
-        assertThrows(EmptyException.class, () -> {
+        try {
             a.login("");
-        });
+            fail("should throw exception");
+        } catch (EmptyException e) {
+        }
     }
 
 }
