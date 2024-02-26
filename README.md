@@ -27,3 +27,5 @@ received. Some targets that this application should achieve includes:
 - As a user, I want to view a list of donors who donated over a specified amount. 
 - As a user, I want the login page to be protected by a username and password.
 - As a user, I want the ability to mark transactions as archived after the current year ends, so they cannot be altered.
+- As a user, when I quit the application, I have the option to save all the donor and transaction data.
+- As a user, when I open the application, I have the option to load previously stored donor and transaction data.
