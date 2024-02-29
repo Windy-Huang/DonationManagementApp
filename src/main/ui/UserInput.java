@@ -6,17 +6,23 @@ import model.Account;
 import model.Date;
 import model.Donor;
 import model.Transaction;
+import persistance.Reader;
+import persistance.Writer;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // represent an object to handle user input
 public class UserInput {
 
     private final Scanner input;
-    private final Panel panel;
+    private Panel panel;
     private Boolean state;
     private Donor selectedDonor;
     private Transaction selectedTransaction;
+    private Reader reader;
+    private Writer writer;
 
     // EFFECTS: create an object to handle user interaction with placeholder selectedDonor and selectedTransaction
     public UserInput() {
@@ -26,6 +32,8 @@ public class UserInput {
         state = false;
         selectedDonor = new Donor(null, null, null);
         selectedTransaction = new Transaction(null, null, 0);
+        reader = null;
+        writer = null;
     }
 
     // MODIFIES: this
@@ -39,6 +47,7 @@ public class UserInput {
             displayMain();
             handleKeyMain();
         }
+        System.out.println("See you next time user RMCS");
     }
 
     // EFFECTS: display the login option that user can choose from
@@ -68,14 +77,14 @@ public class UserInput {
         System.out.println("Add a new donor - 1");
         System.out.println("Edit a current donor - 2");
         System.out.println("Manage all donors - 3");
-        System.out.println("Logout - 4");
+        System.out.println("File storage - 4");
+        System.out.println("Logout - 5");
     }
 
     // MODIFIES: this
     // EFFECTS; handle user key input at the home page
     private void handleKeyMain() {
-        String s = input.next();
-        switch (s) {
+        switch (input.next()) {
             case "1":
                 handleNewDonor();
                 break;
@@ -84,14 +93,15 @@ public class UserInput {
                     System.out.println("Invalid action, there is no donor in the database");
                 } else {
                     displayCurrentDonor();
-                    handleCurrentDonor();
                 }
                 break;
             case "3":
                 displayManageDonor();
                 break;
             case "4":
-                System.out.println("See you next time user RMCS");
+                displayFileStorage();
+                break;
+            case "5":
                 state = false;
                 break;
             default:
@@ -131,6 +141,7 @@ public class UserInput {
         System.out.println("View donor profile - 3");
         System.out.println("Delete this donor - 4");
         System.out.println("Return to home page - any other character");
+        handleCurrentDonor();
     }
 
     // MODIFIES: this
@@ -367,6 +378,57 @@ public class UserInput {
                 panel.sortDonor();
                 panel.printDonor();
                 break;
+        }
+    }
+
+    // EFFECTS: display instruction to user for options available to manage files
+    private void displayFileStorage() {
+        System.out.println("You've selected file storage");
+        System.out.println("If you want to proceed - enter p. To return to home page - enter any key");
+        String s = input.next();
+        if (s.equals("p")) {
+            System.out.println("Select from the following option by entering the number to the right");
+            System.out.println("Load a file - 1");
+            System.out.println("Store the current file - 2");
+            System.out.println("Returning to home page - any key");
+            switch (input.next()) {
+                case "1":
+                    loadFile();
+                    break;
+                case "2":
+                    storeFile();
+                    break;
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: load the file with path inputted by the user
+    private void loadFile() {
+        System.out.println("please enter the file name stored in the data folder");
+        System.out.println("If file is stored in an additional folder, start with the folder name / file name");
+        String path = ("./data/" + input.next() + ".json");
+        try {
+            reader = new Reader(path);
+            panel = reader.build();
+            System.out.println("Data successfully loaded to application.");
+        } catch (IOException e) {
+            System.err.println("The path entered does not exist, please try again.");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: store the file to the path inputted by the user
+    private void storeFile() {
+        System.out.println("Please enter the file name which the data will be stored.");
+        System.out.println("The file will be stored in the data folder.");
+        String path = ("./data/" + input.next() + ".json");
+        try {
+            writer = new Writer(path);
+            writer.write(panel);
+            System.out.println("Data successfully stored to file.");
+        } catch (FileNotFoundException e) {
+            System.err.println("The path entered does not exist, please try again.");
         }
     }
 

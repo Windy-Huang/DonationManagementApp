@@ -1,6 +1,9 @@
 package model;
 
 import exceptions.ArchiveException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // represent a donor with name, phone, email, total donation (in $), and list of transactions
@@ -82,6 +85,20 @@ public class Donor {
         donation -= t.getAmount();
         t.setAmount(amount);
         donation += t.getAmount();
+    }
+
+    // EFFECTS: convert the list of transaction to Json syntax
+    public JSONArray toJson() {
+        JSONArray arr = new JSONArray();
+        for (Transaction t:transactions) {
+            JSONObject transaction = new JSONObject();
+            transaction.put("amount",t.getAmount());
+            transaction.put("type",t.getType());
+            transaction.put("date",t.getDate().toJson());
+            transaction.put("archive", t.getIsArchive());
+            arr.put(transaction);
+        }
+        return arr;
     }
 
 }

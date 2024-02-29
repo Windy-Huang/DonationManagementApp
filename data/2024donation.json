@@ -1,0 +1,44 @@
+{"donors": [
+    {
+        "phone": "604",
+        "name": "Windy",
+        "transactions": [
+            {
+                "date": {
+                    "month": 12,
+                    "year": 2024,
+                    "day": 12
+                },
+                "amount": 100,
+                "archive": false,
+                "type": "cash"
+            },
+            {
+                "date": {
+                    "month": 3,
+                    "year": 2023,
+                    "day": 3
+                },
+                "amount": 10,
+                "archive": true,
+                "type": "debit"
+            }
+        ],
+        "email": "163.com"
+    },
+    {
+        "phone": "778",
+        "name": "Lillian",
+        "transactions": [{
+            "date": {
+                "month": 12,
+                "year": 2021,
+                "day": 4
+            },
+            "amount": 50,
+            "archive": false,
+            "type": "cash"
+        }],
+        "email": "gmail.com"
+    }
+]}

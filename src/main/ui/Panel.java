@@ -2,6 +2,8 @@ package ui;
 
 import java.util.ArrayList;
 import model.Donor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 // represent a command Panel that allows user interaction
 public class Panel {
@@ -94,6 +96,22 @@ public class Panel {
             }
             System.out.println(d.getName() + " donated " + d.getDonation());
         }
+    }
+
+    // EFFECTS: convert the panel to JSON syntax
+    public JSONObject toJson() {
+        JSONObject obj = new JSONObject();
+        JSONArray arr = new JSONArray();
+        for (Donor d:donors) {
+            JSONObject donor = new JSONObject();
+            donor.put("name",d.getName());
+            donor.put("email",d.getEmail());
+            donor.put("phone",d.getPhone());
+            donor.put("transactions", d.toJson());
+            arr.put(donor);
+        }
+        obj.put("donors", arr);
+        return obj;
     }
 
 }

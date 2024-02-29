@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // represent a self-declared date format with month, day, and year
@@ -53,6 +56,15 @@ public class Date {
         MONTH.add("October");
         MONTH.add("November");
         MONTH.add("December");
+    }
+
+    // EFFECTS: convert the date to Json syntax
+    public JSONObject toJson() {
+        JSONObject obj = new JSONObject();
+        obj.put("month", month);
+        obj.put("day", day);
+        obj.put("year", year);
+        return obj;
     }
 
 }
