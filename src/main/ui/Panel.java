@@ -13,7 +13,7 @@ public class Panel {
 
     // EFFECTS: create a panel with no donor and no donation
     public Panel() {
-        donors = new ArrayList<Donor>();
+        donors = new ArrayList<>();
         totalDonation = 0;
     }
 
@@ -62,8 +62,8 @@ public class Panel {
         int size = arr.size();
         if (size > 1) {
             int begin = arr.get(0).getDonation();
-            ArrayList<Donor> left = new ArrayList<Donor>();
-            ArrayList<Donor> right = new ArrayList<Donor>();
+            ArrayList<Donor> left = new ArrayList<>();
+            ArrayList<Donor> right = new ArrayList<>();
             for (int i = 1; i < size; i++) {
                 if (arr.get(i).getDonation() > begin) {
                     left.add(arr.get(i));

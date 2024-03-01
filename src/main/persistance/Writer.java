@@ -10,14 +10,12 @@ import java.io.PrintWriter;
 public class Writer {
 
     private static final int TAB = 4;
-    private PrintWriter pw;
-    private String destination;
+    private final PrintWriter pw;
 
     // EFFECTS: creates a writer
     //          throws FileNotFoundException if destination file cannot
     public Writer(String s) throws FileNotFoundException {
-        destination = s;
-        pw = new PrintWriter(destination);
+        pw = new PrintWriter(s);
     }
 
     // MODIFIES: this

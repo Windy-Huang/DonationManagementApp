@@ -1,0 +1,23 @@
+{"donors": [
+    {
+        "phone": "604",
+        "name": "Windy",
+        "transactions": [{
+            "date": {
+                "month": 10,
+                "year": 2024,
+                "day": 4
+            },
+            "amount": 100,
+            "archive": false,
+            "type": "cash"
+        }],
+        "email": "163.com"
+    },
+    {
+        "phone": "778",
+        "name": "Lillian",
+        "transactions": [],
+        "email": "outlook.com"
+    }
+]}

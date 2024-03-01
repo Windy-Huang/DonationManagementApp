@@ -21,7 +21,7 @@ public class Donor {
         email = s;
         phone = p;
         donation = 0;
-        transactions = new ArrayList<Transaction>();
+        transactions = new ArrayList<>();
     }
 
     // GETTERS:

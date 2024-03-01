@@ -1,6 +1,5 @@
 package model;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class Date {
     // MODIFIES: this
     // EFFECTS: initiate the MONTH array list
     private void initiateMonth() {
-        MONTH = new ArrayList<String>();
+        MONTH = new ArrayList<>();
         MONTH.add("January");
         MONTH.add("February");
         MONTH.add("March");
