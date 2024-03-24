@@ -63,6 +63,25 @@ public class DonorTest {
     }
 
     @Test
+    public void testTransactionArrayOnce() {
+        d1.addTransaction(t1);
+        String[][] s1 = d1.transactionArray();
+        assertEquals("01/08/2024", s1[0][0]);
+        assertEquals("10", s1[0][1]);
+    }
+
+    @Test
+    public void testTransactionArrayMultiple() {
+        d1.addTransaction(t1);
+        d1.addTransaction(t2);
+        String[][] s1 = d1.transactionArray();
+        assertEquals("01/08/2024", s1[0][0]);
+        assertEquals("10", s1[0][1]);
+        assertEquals("01/08/2024", s1[1][0]);
+        assertEquals("500", s1[1][1]);
+    }
+
+    @Test
     public void testAddTransactionOnce() {
         d1.addTransaction(t1);
         assertEquals(1, d1.getTransactions().size());

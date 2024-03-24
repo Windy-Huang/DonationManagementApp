@@ -31,9 +31,10 @@ public class WriterTest {
             Panel panel = new Panel();
             Writer writer = new Writer("./data/testWriterEmpty.json");
             writer.write(panel);
+            panel = new Panel();
 
             Reader reader = new Reader("./data/testReaderEmpty.json");
-            panel = reader.build();
+            reader.build(panel);
             assertEquals(0, panel.getDonors().size());
             assertEquals(0, panel.getTotalDonation());
         } catch (Exception e) {
@@ -51,9 +52,10 @@ public class WriterTest {
             panel.addDonor(new Donor("Lillian", "outlook.com", "778"));
             Writer writer = new Writer("./data/testWriter.json");
             writer.write(panel);
+            panel = new Panel();
 
             Reader reader = new Reader("./data/testWriter.json");
-            panel = reader.build();
+            reader.build(panel);
             assertEquals(2, panel.getDonors().size());
             panel.sortDonor();
             d1 = panel.getDonors().get(0);

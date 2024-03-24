@@ -25,8 +25,9 @@ public class ReaderTest {
     @Test
     public void testReaderEmptyFile() {
         try {
+            Panel panel = new Panel();
             Reader reader = new Reader("./data/testReaderEmpty.json");
-            Panel panel = reader.build();
+            reader.build(panel);
             assertEquals(0, panel.getTotalDonation());
             assertEquals(0, panel.getDonors().size());
         } catch (IOException e) {
@@ -37,8 +38,9 @@ public class ReaderTest {
     @Test
     public void testReaderLoadFile() {
         try {
+            Panel panel = new Panel();
             Reader reader = new Reader("./data/testReader.json");
-            Panel panel = reader.build();
+            reader.build(panel);
             assertEquals(160, panel.getTotalDonation());
             assertEquals(2, panel.getDonors().size());
             panel.sortDonor();

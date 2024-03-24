@@ -39,15 +39,14 @@ public class Reader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: create a panel with loaded donor data
-    public Panel build() {
-        Panel p = new Panel();
+    // MODIFIES: p
+    // EFFECTS: modify the panel with loaded donor data
+    public void build(Panel p) {
         JSONArray arr = obj.getJSONArray("donors");
         for (Object i: arr) {
             JSONObject donor = (JSONObject) i;
             addDonor(p, donor);
         }
-        return p;
     }
 
     // MODIFIES: p

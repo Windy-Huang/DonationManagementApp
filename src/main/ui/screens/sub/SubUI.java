@@ -1,4 +1,4 @@
-package ui.screens.subScreens;
+package ui.screens.sub;
 
 import ui.Panel;
 import javax.swing.*;
@@ -16,7 +16,7 @@ public abstract class SubUI {
         mainFrame = frame;
         this.user = user;
         subFrame = new JDialog(mainFrame,title,true);
-        subFrame.setPreferredSize(new Dimension(500,300));
+        subFrame.setPreferredSize(new Dimension(700,500));
         subFrame.setLayout(null);
         subFrame.setResizable(false);
     }
@@ -27,5 +27,9 @@ public abstract class SubUI {
         subFrame.pack();
         subFrame.setVisible(true);
     }
+
+    // MODIFIES: this
+    // EFFECTS: reset the window to empty status
+    public abstract void reset();
 
 }

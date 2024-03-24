@@ -2,6 +2,7 @@ package ui.screens;
 
 import exceptions.EmptyException;
 import model.Account;
+import ui.Panel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class LoginUI extends UI {
     private JPanel panel;
     private JPanel messagePanel;
     private Account account;
+    private Panel user;
 
     // EFFECTS: create a login window
     public LoginUI() {
@@ -29,11 +31,21 @@ public class LoginUI extends UI {
         panel = new JPanel();
         messagePanel = new JPanel();
         account = new Account("RMCS", "123");
+        user = new Panel();
 
-        // Set layout manager for the panel
+        setLayout();
+        frame.getContentPane().setLayout(new FlowLayout());
+        frame.getContentPane().add(messagePanel);
+
+        button.addActionListener(new LoginAction());
+
+        super.visible();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Set layout manager for the panel
+    private void setLayout() {
         panel.setLayout(new GridLayout(5, 2));
-
-        // Add components to panel with specified regions
         panel.add(new JLabel());
         panel.add(new JLabel());
         panel.add(label);
@@ -42,17 +54,10 @@ public class LoginUI extends UI {
         panel.add(button);
         panel.add(new JLabel());
         panel.add(new JLabel());
+
+        messagePanel.setLayout(new GridLayout(3,1));
+        messagePanel.add(panel);
         messagePanel.add(message);
-
-        // Set size of the panel explicitly
-        frame.getContentPane().setLayout(new FlowLayout());
-        frame.getContentPane().add(panel);
-        frame.getContentPane().add(messagePanel);
-
-        // Add action listeners
-        button.addActionListener(new LoginAction());
-
-        super.visible();
     }
 
     // represent the class that handle user inputted password
@@ -68,7 +73,7 @@ public class LoginUI extends UI {
                 String pass = new String(arr);
                 if (account.login(pass)) {
                     frame.setVisible(false);
-                    HomeScreenUI home = new HomeScreenUI();
+                    HomeScreenUI home = new HomeScreenUI(user);
                 } else {
                     message.setText("Wrong password, please try again.");
                 }

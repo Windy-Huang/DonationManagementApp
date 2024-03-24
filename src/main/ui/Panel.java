@@ -1,6 +1,8 @@
 package ui;
 
 import java.util.ArrayList;
+
+import exceptions.DuplicateException;
 import model.Donor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -43,10 +45,36 @@ public class Panel {
         }
     }
 
+    // EFFECTS: return the donors in an 2D array
+    public String[][] donorArray() {
+        sortDonor();
+        String[][] arr = new String[donors.size()][2];
+        for (int i = 0; i < donors.size(); i++) {
+            arr[i][0] = donors.get(i).getName();
+            arr[i][1] = Integer.toString(donors.get(i).getDonation());
+        }
+        return arr;
+    }
+
     // MODIFIES: this
     // EFFECTS: adds a donor to the list in database
-    public void addDonor(Donor d) {
+    //          if donor already exist, then do nothing
+    public void addDonor(Donor d) throws DuplicateException {
+        if (donors.contains(d)) {
+            throw new DuplicateException();
+        }
         donors.add(d);
+    }
+
+    // EFFECTS: return the index of the donor in the list
+    //          if donor does not exist, return null
+    public Object findDonor(Donor d) {
+        for (int i = 0; i < donors.size(); i++) {
+            if (donors.get(i).equals(d)) {
+                return i;
+            }
+        }
+        return null;
     }
 
     // REQUIRES: donors.contain(d) == true && for all transaction in donors, transaction.getIsArchive == false
@@ -86,16 +114,23 @@ public class Panel {
         donors = quickSort(donors);
     }
 
-    // EFFECTS: print the name of donor and their donated amount if their donation exceeds or equal to value
+    // EFFECTS: return 2D array donor and their donated amount if their donation exceeds or equal to value
     //          donor is arranged in descending order by the amount donated
-    public void donorOverValue(int value) {
+    public String[][] donorOverValue(int value) {
+        ArrayList<Donor> arr = new ArrayList<>();
         sortDonor();
         for (Donor d:donors) {
             if (d.getDonation() < value) {
                 break;
             }
-            System.out.println(d.getName() + " donated " + d.getDonation());
+            arr.add(d);
         }
+        String[][] result = new String[arr.size()][2];
+        for (int i = 0; i < arr.size(); i++) {
+            result[i][0] = arr.get(i).getName();
+            result[i][1] = Integer.toString(arr.get(i).getDonation());
+        }
+        return result;
     }
 
     // EFFECTS: convert the panel to JSON syntax

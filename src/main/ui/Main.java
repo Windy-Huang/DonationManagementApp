@@ -7,6 +7,6 @@ public class Main {
 
     // EFFECTS: calls and initiate the user interface
     public static void main(String[] args) {
-        LoginUI app = new LoginUI();
+        new LoginUI();
     }
 }

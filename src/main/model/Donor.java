@@ -5,8 +5,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-// represent a donor with name, phone, email, total donation (in $), and list of transactions
+// represent a donor with unique name, phone, email, total donation (in $), and list of transactions
 public class Donor {
 
     private final String name;
@@ -43,6 +44,16 @@ public class Donor {
 
     public ArrayList<Transaction> getTransactions() {
         return transactions;
+    }
+
+    // EFFECTS: return transactions in 2D array
+    public String[][] transactionArray() {
+        String[][] arr = new String[transactions.size()][2];
+        for (int i = 0; i < transactions.size(); i++) {
+            arr[i][0] = transactions.get(i).getDate().shortFormat();
+            arr[i][1] = Integer.toString(transactions.get(i).getAmount());
+        }
+        return arr;
     }
 
     // EFFECTS: print out all the donation transaction of donor. If there is no transaction, notify the user
@@ -99,6 +110,23 @@ public class Donor {
             arr.put(transaction);
         }
         return arr;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Donor donor = (Donor) o;
+        return name.equalsIgnoreCase(donor.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 
 }
