@@ -1,7 +1,10 @@
 package model;
 
 import exceptions.ArchiveException;
+import exceptions.DuplicateException;
 import org.junit.jupiter.api.*;
+import ui.Panel;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -15,6 +18,7 @@ public class DonorTest {
     private Date date;
     private Transaction t1;
     private Transaction t2;
+    private Panel panel;
     private final PrintStream systemOutput = System.out;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -197,6 +201,31 @@ public class DonorTest {
     public void testHashcode() {
         assertEquals(d1.hashCode(), d2.hashCode());
         assertEquals(d1.hashCode(), d1.hashCode());
+    }
+
+    @Test
+    public void testAddDonor() {
+        panel = new Panel();
+        try {
+            panel.addDonor(d1);
+        } catch (DuplicateException e) {
+            fail("should not throw exception");
+        }
+        assertEquals(d1, panel.getDonors().get(0));
+    }
+
+    @Test
+    public void testAddDonorEx() {
+        panel = new Panel();
+        try {
+            panel.addDonor(d1);
+            panel.addDonor(d2);
+            fail("should throw exception");
+        } catch (DuplicateException e) {
+            // correct
+        }
+        assertEquals(d1, panel.getDonors().get(0));
+        assertEquals(1, panel.getDonors().size());
     }
 
 }
