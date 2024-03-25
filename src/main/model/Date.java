@@ -20,6 +20,11 @@ public class Date {
         initiateMonth();
     }
 
+    // GETTERS:
+    public int getMonth() {
+        return month;
+    }
+
     // EFFECTS: return the date in MM/DD/YYYY format
     public String shortFormat() {
         return (addLeadingZero(month) + "/" + addLeadingZero(day) + "/" + year);

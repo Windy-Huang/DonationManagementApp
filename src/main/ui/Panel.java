@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import exceptions.DuplicateException;
 import model.Donor;
+import model.Transaction;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -147,6 +148,72 @@ public class Panel {
         }
         obj.put("donors", arr);
         return obj;
+    }
+
+    // EFFECTS: return the transaction statistic as an integer array
+    public int[] transactionData() {
+        int[] arr = new int[12];
+        for (Donor d:donors) {
+            ArrayList<Transaction> transactions = d.getTransactions();
+            for (Transaction t:transactions) {
+                if (t.getDate().getMonth() <= 6) {
+                    upperHelper(arr, t);
+                } else {
+                    lowerHelper(arr, t);
+                }
+            }
+        }
+        return arr;
+    }
+
+    // MODIFIES: arr
+    // EFFECTS: help place the transaction amount in Jan - Jun
+    private void upperHelper(int[] arr, Transaction t) {
+        switch (t.getDate().getMonth()) {
+            case 1:
+                arr[0] += t.getAmount();
+                break;
+            case 2:
+                arr[1] += t.getAmount();
+                break;
+            case 3:
+                arr[2] += t.getAmount();
+                break;
+            case 4:
+                arr[3] += t.getAmount();
+                break;
+            case 5:
+                arr[4] += t.getAmount();
+                break;
+            case 6:
+                arr[5] += t.getAmount();
+                break;
+        }
+    }
+
+    // MODIFIES: arr
+    // EFFECTS: help place the transaction amount in Jul - Dec
+    private void lowerHelper(int[] arr, Transaction t) {
+        switch (t.getDate().getMonth()) {
+            case 7:
+                arr[6] += t.getAmount();
+                break;
+            case 8:
+                arr[7] += t.getAmount();
+                break;
+            case 9:
+                arr[8] += t.getAmount();
+                break;
+            case 10:
+                arr[9] += t.getAmount();
+                break;
+            case 11:
+                arr[10] += t.getAmount();
+                break;
+            case 12:
+                arr[11] += t.getAmount();
+                break;
+        }
     }
 
 }

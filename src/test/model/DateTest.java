@@ -21,6 +21,7 @@ public class DateTest {
         assertEquals("01/08/2024", d1.shortFormat());
         assertEquals("12/20/2020", d2.shortFormat());
         assertEquals("03/10/2010", d3.shortFormat());
+        assertEquals(3, d3.getMonth());
     }
 
     @Test

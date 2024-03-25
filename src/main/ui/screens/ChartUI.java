@@ -1,43 +1,54 @@
 package ui.screens;
 
-import javax.swing.*;
 import java.awt.*;
 
+// represent a graph that showcase how much the organization received per month
 public class ChartUI extends Canvas {
 
-    private JFrame frame;
-    private int x0 = 100;
-    private int y0 = 100;
-    private int y1 = 600;
-    private int x1 = 600;
-    private int blank = 10;
-    private int width = 20;
-    private int v1 = 40;
-    private int v2 = 70;
-    private int v3 = 10;
-    private int v4 = 90;
-    private int v5 = 50;
-    private int v6 = 20;
+    private final int x0 = 100;
+    private final int y0 = 50;
+    private final int y1 = 350;
+    private final int x1 = 680;
+    private final int blank = 20;
+    private final int width = 25;
+    private final int margin = 25;
+    private final String[] label = new String[]{"Jan", "Feb", "Mar",
+            "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
 
+    private int[] value;
+    private double factor;
 
-    public ChartUI(JFrame frame) {
-        this.frame = frame;
-        setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        frame.add(this);
+    // EFFECTS: instantiate the graph and create the rescaling variable
+    public ChartUI(int goal) {
+        value = new int[12];
+        for (int i = 0; i < 12; i++) {
+            value[i] = 0;
+        }
+        this.factor = (double) (y1 - y0) / (double) goal;
     }
 
+    // EFFECTS: Visualize the data and render it on screen
     public void paint(Graphics g) {
         g.setColor(Color.black);
         g.drawLine(x0,y0,x0,y1);
         g.drawLine(x0,y1,x1,y1);
         setBackground(Color.WHITE);
         setForeground(Color.BLUE);
-        g.fillRect(x0 + blank, y1 - v1,width, v1);
-        g.fillRect(x0 + (2 * blank) + (1 * width), y1 - v2, width, v2);
-        g.fillRect(x0 + (3 * blank) + (2 * width), y1 - v3, width, v3);
-        g.fillRect(x0 + (4 * blank) + (3 * width), y1 - v4, width, v4);
-        g.fillRect(x0 + (5 * blank) + (4 * width), y1 - v5, width, v5);
-        g.fillRect(x0 + (6 * blank) + (5 * width), y1 - v6, width, v6);
+        for (int i = 0; i < value.length; i++) {
+            g.fillRect(x0 + ((i + 1) * blank) + (i * width), y1 - value[i], width, value[i]);
+            g.drawString(label[i], x0 + ((i + 1) * blank) + (i * width), y1 + margin);
+        }
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.rotate(-Math.PI / 2); // Rotate by -90 degrees
+        g2d.drawString("Donation received", (-y1 / 2) - 75, x0 - margin);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: updates the data to be shown on screen
+    public void update(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            value[i] = (int) (factor * arr[i]);
+        }
     }
 
 }

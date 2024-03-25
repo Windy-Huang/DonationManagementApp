@@ -73,7 +73,7 @@ public class LoginUI extends UI {
                 String pass = new String(arr);
                 if (account.login(pass)) {
                     frame.setVisible(false);
-                    HomeScreenUI home = new HomeScreenUI(user);
+                    new HomeScreenUI(user);
                 } else {
                     message.setText("Wrong password, please try again.");
                 }

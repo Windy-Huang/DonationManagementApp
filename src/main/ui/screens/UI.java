@@ -8,7 +8,7 @@ public abstract class UI {
 
     protected JFrame frame;
 
-    // EFFECTS: defines characteritics of frame
+    // EFFECTS: defines characteristics of frame
     protected UI(String title) {
         frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
