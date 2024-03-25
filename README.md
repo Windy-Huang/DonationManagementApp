@@ -29,3 +29,18 @@ received. Some targets that this application should achieve includes:
 - As a user, I want the ability to mark transactions as archived after the current year ends, so they cannot be altered.
 - As a user, when I quit the application, I have the option to save all the donor and transaction data.
 - As a user, when I open the application, I have the option to load previously stored donor and transaction data.
+
+### Instructions for Grader
+
+- You can access the home screen of the application by entering the password "123."
+- You can add multiple donors (Xs) to a panel (Y) by navigating to the toolbar, clicking "Add a Donor," and 
+selecting the dropdown "Add Donor." Enter the required input as prompted, and remember to hit enter.
+- You can display a subset of donors (Xs) that satisfy some criterion specified by the user by navigating to the 
+toolbar, clicking "View All Donors," and selecting the dropdown "View with Threshold." Enter the minimum amount of 
+donation required to display. The donors will appear in decreasing order of donation amount. 
+- You can locate the visual component on the home screen. Once the application's data is updated, the visual component
+will also update accordingly. 
+- You can save the state of the application by navigating to the toolbar, clicking "Manage Files," and selecting the 
+dropdown "Save File." Enter the name of the file to save. 
+- You can reload the state of the application by navigating to the toolbar, clicking "Manage Files," and selecting the
+dropdown "Load File." Enter the name of the file to load.

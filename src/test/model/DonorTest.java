@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DonorTest {
 
     private Donor d1;
+    private Donor d2;
+    private Donor d3;
     private Date date;
     private Transaction t1;
     private Transaction t2;
@@ -19,6 +21,8 @@ public class DonorTest {
     @BeforeEach
     public void setUp() {
         d1 = new Donor("a", "e1", "p1");
+        d2 = new Donor("A", "e1", "p1");
+        d3 = new Donor("b", "e2", "p2");
         date = new Date(1,8,2024);
         t1 = new Transaction(date, "cash", 10);
         t2 = new Transaction(date, "debit", 500);
@@ -178,6 +182,20 @@ public class DonorTest {
         }
         assertEquals(1, d1.getTransactions().size());
         assertEquals(500, d1.getDonation());
+    }
+
+    @Test
+    public void testEquals() {
+        assertTrue(d1.equals(d1));
+        assertTrue(d1.equals(d2));
+        assertFalse(d1.equals(t1));
+        assertFalse(d1.equals(d3));
+    }
+
+    @Test
+    public void testHashcode() {
+        assertEquals(d1.hashCode(), d2.hashCode());
+        assertEquals(d1.hashCode(), d1.hashCode());
     }
 
 }
