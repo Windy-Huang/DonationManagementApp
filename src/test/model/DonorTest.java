@@ -190,6 +190,7 @@ public class DonorTest {
         assertTrue(d1.equals(d2));
         assertFalse(d1.equals(t1));
         assertFalse(d1.equals(d3));
+        assertFalse(d1.equals(null));
     }
 
     @Test
