@@ -2,6 +2,7 @@ package ui.screens.sub;
 
 import exceptions.DuplicateException;
 import model.Donor;
+import model.EventLog;
 import ui.Panel;
 
 import javax.swing.*;
@@ -11,6 +12,8 @@ import java.awt.event.ActionListener;
 
 // represent the addDonor screen
 public class AddDonor extends SubUI {
+
+    private EventLog log;
 
     private JLabel label1;
     private JLabel warning1;
@@ -38,6 +41,7 @@ public class AddDonor extends SubUI {
         super(frame, u, title);
         panel = new JPanel();
         buttonPanel = new JPanel();
+        log = EventLog.getInstance();
         init();
         setLayout();
 
@@ -142,6 +146,7 @@ public class AddDonor extends SubUI {
         public void actionPerformed(ActionEvent e) {
             if (button.isEnabled()) {
                 Donor d = new Donor(name, email, phone);
+                d.addObserver(log);
                 try {
                     user.addDonor(d);
                     message.setText("Donor successfully added. Please close the window.");

@@ -1,5 +1,6 @@
 package ui.screens;
 
+import model.EventLog;
 import ui.Panel;
 import ui.screens.sub.*;
 
@@ -7,11 +8,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 // represent the home screen of the application
 public class HomeScreenUI extends UI {
 
     private Panel user;
+    private EventLog log;
     private JRootPane root;
 
     private JMenuBar bar;
@@ -44,6 +48,7 @@ public class HomeScreenUI extends UI {
     public HomeScreenUI(Panel user) {
         super("Home");
         this.user = user;
+        log = EventLog.getInstance();
         bar = new JMenuBar();
         setMenu();
         root = frame.getRootPane();
@@ -77,6 +82,7 @@ public class HomeScreenUI extends UI {
         i6.addActionListener(new ItemListener(new AddTransaction(frame, this.user, "add transaction"), i6));
         i7.addActionListener(new ItemListener(new ViewTransaction(frame, this.user, "view transaction"), i7));
         button.addActionListener(new LogOffAction());
+        frame.addWindowListener(new QuitAction());
     }
 
     // MODIFIES: this
@@ -171,8 +177,43 @@ public class HomeScreenUI extends UI {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (button.isEnabled()) {
+                log.printLog();
                 System.exit(0);
             }
+        }
+
+    }
+
+    // represent a class that handles user unexpectedly close the home screen
+    private class QuitAction implements WindowListener {
+
+        @Override
+        public void windowOpened(WindowEvent e) {
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            log.printLog();
+        }
+
+        @Override
+        public void windowClosed(WindowEvent e) {
+        }
+
+        @Override
+        public void windowIconified(WindowEvent e) {
+        }
+
+        @Override
+        public void windowDeiconified(WindowEvent e) {
+        }
+
+        @Override
+        public void windowActivated(WindowEvent e) {
+        }
+
+        @Override
+        public void windowDeactivated(WindowEvent e) {
         }
 
     }

@@ -3,12 +3,13 @@ package model;
 import exceptions.ArchiveException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import pattern.Subject;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 // represent a donor with unique name, phone, email, total donation (in $), and list of transactions
-public class Donor {
+public class Donor extends Subject {
 
     private final String name;
     private final String email;
@@ -53,6 +54,7 @@ public class Donor {
             arr[i][0] = transactions.get(i).getDate().shortFormat();
             arr[i][1] = Integer.toString(transactions.get(i).getAmount());
         }
+        notifyObserver(name + "'s transaction history viewed.");
         return arr;
     }
 
@@ -72,6 +74,7 @@ public class Donor {
     public void addTransaction(Transaction t) {
         transactions.add(t);
         donation += t.getAmount();
+        notifyObserver("A new transaction added to " + name);
     }
 
     // REQUIRES: transactions.contain(t) == true

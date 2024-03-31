@@ -44,3 +44,22 @@ will also update accordingly.
 dropdown "Save File." Enter the name of the file to save. 
 - You can reload the state of the application by navigating to the toolbar, clicking "Manage Files," and selecting the
 dropdown "Load File." Enter the name of the file to load.
+
+### Phase 4: Task 2
+A representative sample of the event log:
+
+EventLog
+
+Sat Mar 30 21:33:44 PDT 2024
+A new transaction added to windy
+
+Sat Mar 30 21:34:15 PDT 2024
+A new transaction added to lillian
+
+Sat Mar 30 21:34:30 PDT 2024
+lillian's transaction history viewed.
+
+Sat Mar 30 21:34:35 PDT 2024
+windy's transaction history viewed.
+
+End of Session
