@@ -228,4 +228,16 @@ public class DonorTest {
         assertEquals(1, panel.getDonors().size());
     }
 
+    @Test
+    public void testAddObserver() {
+        d1.addObserver(EventLog.getInstance());
+        d1.notifyObserver("message");
+        EventLog el = EventLog.getInstance();
+        el.printLog();
+        String s = outputStream.toString().trim();
+        assertTrue(s.startsWith("EventLog"));
+        assertTrue(s.contains("message"));
+        assertTrue(s.endsWith("End of Session"));
+    }
+
 }
