@@ -19,11 +19,10 @@ public class LoginUI extends UI {
     private JPanel panel;
     private JPanel messagePanel;
     private Account account;
-    private Panel user;
 
     // EFFECTS: create a login window
     public LoginUI() {
-        super("Login");
+        super("Login", new Panel());
         label = new JLabel("Password:");
         message = new JLabel();
         button = new JButton("login");
@@ -31,7 +30,6 @@ public class LoginUI extends UI {
         panel = new JPanel();
         messagePanel = new JPanel();
         account = new Account("RMCS", "123");
-        user = new Panel();
 
         setLayout();
         frame.getContentPane().setLayout(new FlowLayout());

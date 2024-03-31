@@ -63,3 +63,19 @@ Sat Mar 30 21:34:35 PDT 2024
 windy's transaction history viewed.
 
 End of Session
+
+### Phase 4: Task 3
+
+Reflecting on the design presented in the UML class diagram, one area that could benefit from refactoring is the Panel 
+class, which appears to have low cohesion. For instance, the addition, removal, and modification of donors should be 
+separated from the sorting and printing of the entire donor list; these functionalities would be better placed within 
+the model package to improve organization. Additionally, I noticed that the donorArray method essentially duplicates the
+donorOverValue method with a value of 0, indicating redundant code that could be consolidated into a single function. 
+Furthermore, the toJson function, currently situated within the Panel class, would be more appropriately located in the 
+Transaction class for better cohesion. Implementing these refactoring changes would lead to a more coherent and 
+streamlined Panel class structure.
+
+On the other hand, the AddTransaction class in the UML diagram shows it has a lot of private classes, each intended to 
+handle a specific user input field. To improve the design, I aim to refactor and abstract a general function that's 
+capable of handling multiple input fields, similar to the approach employed in the HomeScreenUI's private class, 
+ItemListener. Overall, these refactoring strategies can improve code organization and reduce redundancy.

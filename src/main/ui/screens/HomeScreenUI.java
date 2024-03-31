@@ -1,8 +1,8 @@
 package ui.screens;
 
 import model.EventLog;
-import ui.Panel;
 import ui.screens.sub.*;
+import ui.Panel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,6 @@ import java.awt.event.WindowListener;
 // represent the home screen of the application
 public class HomeScreenUI extends UI {
 
-    private Panel user;
     private EventLog log;
     private JRootPane root;
 
@@ -46,8 +45,7 @@ public class HomeScreenUI extends UI {
 
     // EFFECTS: create a main window to access all subwindows of the application
     public HomeScreenUI(Panel user) {
-        super("Home");
-        this.user = user;
+        super("Home", user);
         log = EventLog.getInstance();
         bar = new JMenuBar();
         setMenu();
@@ -74,13 +72,13 @@ public class HomeScreenUI extends UI {
     // MODIFIES: this
     // EFFECTS: handles adding action listener to variety of interactive features
     private void addListener() {
-        i1.addActionListener(new ItemListener(new LoadFile(frame, this.user, "load"), i1));
-        i2.addActionListener(new ItemListener(new StoreFile(frame, this.user, "store"), i2));
-        i3.addActionListener(new ItemListener(new DescendingOrder(frame, this.user, "descending order"), i3));
-        i4.addActionListener(new ItemListener(new Threshold(frame, this.user, "threshold"), i4));
-        i5.addActionListener(new ItemListener(new AddDonor(frame, this.user, "add donor"), i5));
-        i6.addActionListener(new ItemListener(new AddTransaction(frame, this.user, "add transaction"), i6));
-        i7.addActionListener(new ItemListener(new ViewTransaction(frame, this.user, "view transaction"), i7));
+        i1.addActionListener(new ItemListener(new LoadFile(frame, user, "load"), i1));
+        i2.addActionListener(new ItemListener(new StoreFile(frame, user, "store"), i2));
+        i3.addActionListener(new ItemListener(new DescendingOrder(frame, user, "descending order"), i3));
+        i4.addActionListener(new ItemListener(new Threshold(frame, user, "threshold"), i4));
+        i5.addActionListener(new ItemListener(new AddDonor(frame, user, "add donor"), i5));
+        i6.addActionListener(new ItemListener(new AddTransaction(frame, user, "add transaction"), i6));
+        i7.addActionListener(new ItemListener(new ViewTransaction(frame, user, "view transaction"), i7));
         button.addActionListener(new LogOffAction());
         frame.addWindowListener(new QuitAction());
     }

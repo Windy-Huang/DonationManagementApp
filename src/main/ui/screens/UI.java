@@ -1,5 +1,7 @@
 package ui.screens;
 
+import ui.Panel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,14 +9,16 @@ import java.awt.*;
 public abstract class UI {
 
     protected JFrame frame;
+    protected Panel user;
 
     // EFFECTS: defines characteristics of frame
-    protected UI(String title) {
+    protected UI(String title, Panel user) {
         frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setPreferredSize(new Dimension(800,600));
         frame.setLayout(null);
         frame.setResizable(false);
+        this.user = user;
     }
 
     // MODIFIES: this
