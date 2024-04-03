@@ -78,4 +78,4 @@ streamlined Panel class structure.
 On the other hand, the AddTransaction class in the UML diagram shows it has a lot of private classes, each intended to 
 handle a specific user input field. To improve the design, I aim to refactor and abstract a general function that's 
 capable of handling multiple input fields, similar to the approach employed in the HomeScreenUI's private class, 
-ItemListener. Overall, these refactoring strategies can improve code organization and reduce redundancy.
+1ItemListener. Overall, these refactoring strategies can improve code organization and reduce redundancy.
