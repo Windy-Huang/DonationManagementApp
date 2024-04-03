@@ -46,7 +46,10 @@ dropdown "Save File." Enter the name of the file to save.
 dropdown "Load File." Enter the name of the file to load.
 
 ### Phase 4: Task 2
-A representative sample of the event log:
+Here is a representative sample of the event log.
+
+(The list of X referred here is Transaction, while the Y referred here is Donor, which differs from the selection of 
+X and Y in phase 3.)
 
 EventLog
 
